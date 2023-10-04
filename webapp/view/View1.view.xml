@@ -1,0 +1,44 @@
+<mvc:View controllerName="pie.chart.v2.pie.chart.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data" height="100%"
+    xmlns:form="sap.ui.layout.form"
+    >
+    <Page id="page" title="{i18n>title}">
+        <Label
+        id= "label1"
+        design="Bold" />
+        <layout:FixFlex id='chartFixFlex' minFlexSize="250"  >
+            <!--Below is the setting panel -->
+             <layout:flexContent>
+                <viz:Popover id="idPopOver"></viz:Popover>
+                <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+                    height='100%' width="100%" vizType='pie'      vizProperties="{
+                         plotArea:{ dataLabel:{visible: true} }, title : {text:'Dati statistici per File'} }"
+                         selectData="myOnClickHandler">
+                    <viz:dataset>
+                        <viz.data:FlattenedDataset data="{PieData>/results}">
+                            <viz.data:dimensions>
+                                <viz.data:DimensionDefinition name="Tipo Evento"
+                                    value="{PieData>Tipo_Evento}" />
+                            </viz.data:dimensions>
+                            <viz.data:measures>
+                                <viz.data:MeasureDefinition name="Numero Record"
+                                    value="{PieData>Numero_Record}" />
+                            </viz.data:measures>
+                        </viz.data:FlattenedDataset>
+                    </viz:dataset>
+
+                    <viz:feeds>
+                        <viz.feeds:FeedItem uid="size" type="Measure"
+                            values="Numero Record"  />
+                        <viz.feeds:FeedItem uid="color" type="Dimension"
+                            values="Tipo Evento" />
+                    </viz:feeds>
+                </viz:VizFrame>
+            </layout:flexContent>
+        </layout:FixFlex>
+    </Page>
+</mvc:View>
